@@ -1,0 +1,7 @@
+{
+  // Dev Container の表示名設定
+  "name": "pytorch-jupyterlab-gpu",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace"
+}
