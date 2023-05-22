@@ -8,6 +8,7 @@ Build the Docker environment required for AI development
 * [[2]](https://qiita.com/radiol/items/48909d69ba8114edcbf2) Pytorch+JupyterLab+GPUをDockerで作成
 * [[3]](https://amaya382.hatenablog.jp/entry/2017/04/03/034002)Docker Composeでビルド時に任意のイメージ名を指定する方法
 * [[4]](https://qiita.com/suin/items/19d65e191b96a0079417)《滅びの呪文》Docker Composeで作ったコンテナ、イメージ、ボリューム、ネットワークを一括完全消去する便利コマンド
+* [[5]](https://take-tech-engineer.com/python-tqdm-progressbar-pyprind/#toc2)【Python】プログレスバーで進捗を確認するtqdm、progressbar2、PyPrindの使い方
 
 ## 目標
 Windows11に標準装備されたWSL2を使って、Linux環境からGPU利用ありのPyTorchを動かす
@@ -91,9 +92,26 @@ docker-compose up
 
 このコマンドにより、Docker Composeの機能でdocker-compose.ymlに記載されている情報を読み取り、Dockerイメージのビルドとコンテナの実行を自動的に行う
 
+以下のコマンドを実行して、イメージをビルドしなおす
+<pre>
+docker-compose build --no-cache app
+</pre>
+
 ## 滅びの呪文
 Docker Composeで作ったコンテナ、イメージ、ボリューム、ネットワークを一括完全消去する便利コマンド
 .devcontainer フォルダ直下でコマンドを実行する
 <pre>
 docker-compose down --rmi all --volumes --remove-orphans
 </pre>
+
+
+# Jupyter
+Dockerコンテナを起動したら、コンテナ内の端末にアクセスする
+
+以下のコマンドを実行して、Jupyterを起動する
+<pre>
+jupyter notebook
+</pre>
+
+以下のURLへアクセスして、起動したjupyter notebookへアクセスする
+http://localhost:8888 

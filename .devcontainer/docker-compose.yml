@@ -20,9 +20,13 @@ services:
     # コンテナを永続化して、消さないようにする
     command: /bin/sh -c "while sleep 1000; do :; done"
 
+    ports: 
+      # jupyter_notebookへ接続するポート番号を設定
+      - 8888:8888
+
     # コンテナ接続時に開くワークスペースをマウント 
     volumes:
-      - ../:/workspace
+      - ../workspace:/workspace
     
     # 環境変数を設定するファイル
     env_file:

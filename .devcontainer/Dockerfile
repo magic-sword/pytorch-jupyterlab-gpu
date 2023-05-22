@@ -23,3 +23,30 @@ USER $USERNAME
 
 # root権限となってしまっているフォルダとファイルの権限を、再帰的に全て変更するコマンド
 # sudo chown -R dev:dev [filename/foldername]
+
+
+# === JupyterLab ===
+RUN python -m pip install --upgrade pip
+RUN python -m pip install \
+    ipywidgets \
+    jupyterlab \
+    matplotlib \
+    nodejs \
+    opencv \
+    pandas \
+    scikit-learn \
+    seaborn \
+    sympy \
+    tqdm
+
+# Install jupyter extensions
+# jupyterlabでtqdmでの進捗バー表示が行えるようになる(3年前)
+# 今はpip install tqdmで使える？
+# RUN sudo jupyter nbextension enable --py --sys-prefix widgetsnbextension
+# RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager
+
+# jupyter_notebookの設定ファイルをコピー
+COPY jupyter_notebook_config.py /root/.jupyter/
+
+# jupyter_notebook 起動
+# RUN jupyter notebook
