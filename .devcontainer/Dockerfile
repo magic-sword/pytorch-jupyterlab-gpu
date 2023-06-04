@@ -46,7 +46,7 @@ RUN python -m pip install \
 # RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager
 
 # jupyter_notebookの設定ファイルをコピー
-COPY jupyter_notebook_config.py /root/.jupyter/
+COPY .devcontainer/jupyter_notebook_config.py /root/.jupyter/
 
 # jupyter_notebook 起動
 # RUN jupyter notebook

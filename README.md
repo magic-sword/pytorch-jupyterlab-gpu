@@ -9,6 +9,7 @@ Build the Docker environment required for AI development
 * [[3]](https://amaya382.hatenablog.jp/entry/2017/04/03/034002)Docker Composeでビルド時に任意のイメージ名を指定する方法
 * [[4]](https://qiita.com/suin/items/19d65e191b96a0079417)《滅びの呪文》Docker Composeで作ったコンテナ、イメージ、ボリューム、ネットワークを一括完全消去する便利コマンド
 * [[5]](https://take-tech-engineer.com/python-tqdm-progressbar-pyprind/#toc2)【Python】プログレスバーで進捗を確認するtqdm、progressbar2、PyPrindの使い方
+* [[6]](https://www.kagoya.jp/howto/cloud/container/dockerhub/) 【入門】Docker Hubとは？概要と仕組み、基本的な使い方を解説
 
 ## 目標
 Windows11に標準装備されたWSL2を使って、Linux環境からGPU利用ありのPyTorchを動かす
