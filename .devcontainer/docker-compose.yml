@@ -18,8 +18,7 @@ services:
     image: ${DOCKERHUB_ACCOUNTNAME}/${IMAGENAME:-pytorch-jupyterlab-gpu}
 
     # コンテナ起動時にjupyter_notebookを起動
-    # コンテナを永続化して、消さないようにする
-    command: /bin/sh -c "sudo chmod +x ./start_up.sh && ./start_up.sh &&  while sleep 1000; do :; done"
+    # command: /bin/sh -c "/usr/local/bin/start_up.sh"
 
     ports: 
       # jupyter_notebookへ接続するポート番号を設定

@@ -48,5 +48,8 @@ RUN python -m pip install \
 # jupyter_notebookの設定ファイルをコピー
 COPY .devcontainer/jupyter_notebook_config.py /root/.jupyter/
 
-# jupyter_notebook 起動
-# RUN jupyter notebook
+# 起動時のスクリプトをコピー
+COPY --chmod=+x .devcontainer/start_up.sh /usr/local/bin/
+
+# コンテナ起動時にjupyter_notebookを起動
+CMD ["/usr/local/bin/start_up.sh"]
