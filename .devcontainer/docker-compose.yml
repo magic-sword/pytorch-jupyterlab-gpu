@@ -14,6 +14,9 @@ services:
         UID: ${UID:-1000}
         GID: ${GID:-1000}
     
+    # コンテナにログインするデフォルトのユーザ
+    user: ${USERNAME:-dev}
+    
     # buildと併用してimageを指定すると、buildが優先されて作成されたimageに明示的な名前を付けられる
     image: ${DOCKERHUB_ACCOUNTNAME}/${IMAGENAME:-pytorch-jupyterlab-gpu}
 
