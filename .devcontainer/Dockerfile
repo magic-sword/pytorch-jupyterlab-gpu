@@ -53,3 +53,15 @@ COPY --chmod=+x .devcontainer/start_up.sh /usr/local/bin/
 
 # コンテナ起動時にjupyter_notebookを起動
 CMD ["/usr/local/bin/start_up.sh"]
+
+
+# === nbextensions === 
+# 1. Install the python package
+RUN sudo pip install jupyter_contrib_nbextensions
+
+# 2. Install javascript and css files
+# --symlink:  to symlink the nbextensions rather than copying each file (recommended, on non-Windows platforms).
+RUN sudo jupyter contrib nbextension install --symlink
+
+# 3. Enabling/Disabling extensions
+RUN jupyter nbextension enable hinterland/hinterland

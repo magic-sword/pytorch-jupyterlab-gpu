@@ -10,6 +10,8 @@ Build the Docker environment required for AI development
 * [[4]](https://qiita.com/suin/items/19d65e191b96a0079417)《滅びの呪文》Docker Composeで作ったコンテナ、イメージ、ボリューム、ネットワークを一括完全消去する便利コマンド
 * [[5]](https://take-tech-engineer.com/python-tqdm-progressbar-pyprind/#toc2)【Python】プログレスバーで進捗を確認するtqdm、progressbar2、PyPrindの使い方
 * [[6]](https://www.kagoya.jp/howto/cloud/container/dockerhub/) 【入門】Docker Hubとは？概要と仕組み、基本的な使い方を解説
+* [[7]](https://qiita.com/simonritchie/items/49e0813508cad4876b5a) [Python]可読性を上げるための、docstringの書き方を学ぶ（NumPyスタイル）
+* [[7]](https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/install.html) Installing jupyter_contrib_nbextensions
 
 ## 目標
 Windows11に標準装備されたWSL2を使って、Linux環境からGPU利用ありのPyTorchを動かす
@@ -116,3 +118,11 @@ jupyter notebook
 
 以下のURLへアクセスして、起動したjupyter notebookへアクセスする
 http://localhost:8888 
+
+## nbextentions
+nbextentionsは、jupyterでコード補完をしてくれる拡張機能
+コードの入力途中でTABキーを押下すると、入力候補を表示してくれる。
+
+さらに、nbextentionsにある「hinterland」機能を有効化すると、[Shift+TAB]でdocstringも表示してくれる。
+[Shift+TAB]キーを何度も繰り返し押下すると、docstringを表示するレイアウトが変化してさらに見やすくなる。
+開発する際に非常に便利。
