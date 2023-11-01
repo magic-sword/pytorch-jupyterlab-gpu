@@ -11,7 +11,8 @@ Build the Docker environment required for AI development
 * [[5]](https://take-tech-engineer.com/python-tqdm-progressbar-pyprind/#toc2)【Python】プログレスバーで進捗を確認するtqdm、progressbar2、PyPrindの使い方
 * [[6]](https://www.kagoya.jp/howto/cloud/container/dockerhub/) 【入門】Docker Hubとは？概要と仕組み、基本的な使い方を解説
 * [[7]](https://qiita.com/simonritchie/items/49e0813508cad4876b5a) [Python]可読性を上げるための、docstringの書き方を学ぶ（NumPyスタイル）
-* [[7]](https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/install.html) Installing jupyter_contrib_nbextensions
+* [[8]](https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/install.html) Installing jupyter_contrib_nbextensions
+* [[9]](https://qiita.com/gorogoroyasu/items/e71dd3c076af145c9b44) Docker 上で Pytorch を実行している際に DataLoader worker (pid xxx) is killed by signal: Bus error. というエラーが出る
 
 ## 目標
 Windows11に標準装備されたWSL2を使って、Linux環境からGPU利用ありのPyTorchを動かす
@@ -126,3 +127,28 @@ nbextentionsは、jupyterでコード補完をしてくれる拡張機能
 さらに、nbextentionsにある「hinterland」機能を有効化すると、[Shift+TAB]でdocstringも表示してくれる。
 [Shift+TAB]キーを何度も繰り返し押下すると、docstringを表示するレイアウトが変化してさらに見やすくなる。
 開発する際に非常に便利。
+
+# Tips
+
+## 共有メモリ
+
+Dockerコンテナ上でAIの学習を実行していると、以下のようなエラーが発生することがある
+<pre>
+ERROR: Unexpected bus error encountered in worker. This might be caused by insufficient shared memory (shm).
+</pre>
+
+原因は、共有メモリの容量不足エラーである。
+環境上の共有メモリの容量は、以下のコマンドを実行して確認できる
+<pre>
+df -h
+</pre>
+|Filesystem | Size  | Used  | Avail | Use%  | Mounted on |
+| :---:     | :---: | :---: | :---: | :---: | :---:      |
+|  shm      |  64M  | 0     | 64M   |	0%  | /dev/shm   |
+
+Filesystem名が「shm」のものが共有メモリのとなる。
+デフォルトのDockerでは、64MBしか確保されていない。
+そのため、AIの学習実行時にメモリ不足エラーが発生することがある。
+
+docker-compose.ymlのサービスに、「shm_size」を指定することで、
+docker-compose run実行時の共有メモリ容量を指定することができる。
