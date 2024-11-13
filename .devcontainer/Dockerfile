@@ -1,9 +1,9 @@
-# 元にするnvidiaのpytorch  バージョンは最新のものを確認
-FROM nvcr.io/nvidia/pytorch:23.04-py3
+# Python3.9以上で利用するため、nvidia/cudaから利用
+FROM nvidia/cuda:12.1.0-cudnn8-runtime-ubuntu22.04
 
 # sudoを利用できるようにする
-RUN apt update
-RUN apt install sudo
+RUN apt-get update
+RUN apt-get install sudo
 
 # root以外のユーザを追加し、sudoをパスワードなしで実行可能にする
 ARG USERNAME=dev
@@ -24,26 +24,30 @@ RUN DEBIAN_FRONTEND=noninteractive sudo -E apt install -y tzdata
 # root権限となってしまっているフォルダとファイルの権限を、再帰的に全て変更するコマンド
 # sudo chown -R dev:dev [filename/foldername]
 
+# Python 3.12をインストール
+RUN sudo apt-get install -y software-properties-common
+RUN sudo add-apt-repository -y ppa:deadsnakes/ppa
+RUN sudo apt-get install -y python3.12 
+RUN sudo apt-get install -y curl
+RUN curl -sSL https://bootstrap.pypa.io/get-pip.py | python3.12
+ENV PATH $PATH:/home/dev/.local/lib/python3.12/site-packages
+RUN python3.12 -m pip install --upgrade pip
+
+# # Pytorchインストール(CUDA 12.1)
+RUN python3.12 -m pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 
 # === JupyterLab ===
-RUN python -m pip install --upgrade pip
-RUN python -m pip install \
+RUN python3.12 -m pip install \
     ipywidgets \
     jupyterlab \
     matplotlib \
     nodejs \
-    opencv \
+    opencv-python \
     pandas \
     scikit-learn \
     seaborn \
     sympy \
     tqdm
-
-# Install jupyter extensions
-# jupyterlabでtqdmでの進捗バー表示が行えるようになる(3年前)
-# 今はpip install tqdmで使える？
-# RUN sudo jupyter nbextension enable --py --sys-prefix widgetsnbextension
-# RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager
 
 # jupyter_notebookの設定ファイルをコピー
 # COPY .devcontainer/jupyter_notebook_config.py /root/.jupyter/
@@ -53,15 +57,3 @@ COPY --chmod=+x .devcontainer/start_up.sh /usr/local/bin/
 
 # コンテナ起動時にjupyter_notebookを起動
 CMD ["/usr/local/bin/start_up.sh"]
-
-
-# === nbextensions === 
-# 1. Install the python package
-RUN sudo pip install jupyter_contrib_nbextensions
-
-# 2. Install javascript and css files
-# --symlink:  to symlink the nbextensions rather than copying each file (recommended, on non-Windows platforms).
-RUN sudo jupyter contrib nbextension install --symlink
-
-# 3. Enabling/Disabling extensions
-RUN jupyter nbextension enable hinterland/hinterland

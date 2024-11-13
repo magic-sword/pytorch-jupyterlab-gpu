@@ -19,6 +19,10 @@ Windows11に標準装備されたWSL2を使って、Linux環境からGPU利用�
 
 # Protocol
 
+## Requirements
+
+* CUDA >= 12.1
+
 ## Install
 
 ### WSL2
@@ -90,15 +94,18 @@ Remote Developmentのプラグインにより、このディレクトリを開�
 # Build
 
 WSL上のターミナルで.devcontainerフォルダ直下にアクセスし、以下のコマンドを実行する
+* `--build`: docker file の変更を反映して再ビルドする
 <pre>
-docker-compose up
+docker-compose up --build
 </pre>
 
 このコマンドにより、Docker Composeの機能でdocker-compose.ymlに記載されている情報を読み取り、Dockerイメージのビルドとコンテナの実行を自動的に行う
 
 以下のコマンドを実行して、イメージをビルドしなおす
+* `--no-cache `: ビルド時にキャッシュを利用しない
+* `--progress=plain`: ビルド時の出力をそのまま見れるので、デバッグに有効
 <pre>
-docker-compose build --no-cache app
+docker-compose build app --no-cache --progress=plain
 </pre>
 
 ## 滅びの呪文
